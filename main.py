@@ -25,6 +25,14 @@ class ChatRequest(BaseModel):
     temperature: float = 0.2
     max_tokens: int = 150
 
+@app.get("/health")
+async def health():
+    return {"status": "healthy"}
+
+@app.get("/")
+async def root():
+    return {"message": "Qwen2 API Server", "status": "running"}
+
 @app.post("/v1/chat/completions")
 async def chat_completions(request: ChatRequest):
     # Format messages for Qwen2
@@ -61,7 +69,3 @@ async def chat_completions(request: ChatRequest):
             }
         ]
     }
-
-@app.get("/health")
-async def health():
-    return {"status": "healthy"} 
